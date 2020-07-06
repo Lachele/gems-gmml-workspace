@@ -19,9 +19,6 @@ fi
 if [ ! -d ${GW_PROGRAMS_DIR}/${GEMS_DIR_NAME}/${GMML_DIR_NAME} ]; then
 	print_error_and_exit "The GMML directory seems to be missing. Please make sure to run git-setup.sh first. Exiting..."
 fi
-if [ ! -d ${GW_PROGRAMS_DIR}/${GPBUILDER_DIR_NAME} ]; then
-	print_error_and_exit "The GlycoProteinBuilder seems to be missing. Please make sure to run git-setup.sh first. Exiting..."
-fi
 
 cd ${GW_GRPC_DIR} && source ./settings.sh && cd ..
 
