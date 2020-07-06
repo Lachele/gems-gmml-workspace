@@ -1,0 +1,26 @@
+version: '3.7'
+
+#########################################################
+#          DevEnv GRPC Delegator Stack                  #
+#########################################################
+services:
+  #########################################################
+  #        DevEnv GRPC Delegator Service                  #
+  #########################################################
+  gw-grpc_delegator:
+    build:
+      context: ${GW_GRPC_DELEGATOR_DOCKERFILE_DIR}
+      dockerfile: ${GW_GRPC_DELEGATOR_DOCKERFILE}
+      args:
+        PYTHON_IMAGE: ${GW_GRPC_DELEGATOR_FROM_IMAGE}
+        USER_ID: ${USER_UID}
+        GROUP_ID: ${USER_GID}
+    image: ${GW_GRPC_DELEGATOR_IMAGE}:${GW_GRPC_DELEGATOR_TAG}
+    container_name: ${GW_GRPC_DELEGATOR_CONTAINER_NAME}
+    user: webdev:webster
+    dns:  8.8.8.8
+    volumes:
+      - ${GEMS_BASE_PATH}:/programs/gems/
+      - ${PROGRAMS_BASE_PATH}/workspace/:/website/workspace/
+    command: [ "python" ]
+

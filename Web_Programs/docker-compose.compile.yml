@@ -6,7 +6,7 @@ services:
     container_name: ${GW_GRPC_DELEGATOR_CONTAINER_NAME}_compiler
     volumes:
       - ${GEMS_BASE_PATH}:/programs/gems
-      - ${DATA_BASE_PATH}/workspace:/website/workspace/
+      - ${PROGRAMS_BASE_PATH}/workspace:/website/workspace/
     user: webdev:webster
     command: bash -c "cd /programs/gems/ && ${GEMS_COMMAND}"
 
