@@ -1,0 +1,57 @@
+version: '3.7'
+
+#########################################################
+#          DevEnv GRPC Delegator Stack                  #
+#########################################################
+services:
+  #########################################################
+  #        DevEnv GRPC Delegator Service                  #
+  #########################################################
+  gw-grpc_delegator:
+    build:
+      context: ${GW_GRPC_DELEGATOR_DOCKERFILE_DIR}
+      dockerfile: ${GW_GRPC_DELEGATOR_DOCKERFILE}
+      args:
+        PYTHON_IMAGE: ${GW_GRPC_DELEGATOR_FROM_IMAGE}
+        USER_ID: ${USER_UID}
+        GROUP_ID: ${USER_GID}
+    image: ${GW_GRPC_DELEGATOR_IMAGE}:${GW_GRPC_DELEGATOR_TAG}
+    container_name: ${GW_GRPC_DELEGATOR_CONTAINER_NAME}
+    user: webdev:webster
+    networks:
+      gw-grpc-net:
+        aliases:
+          - ${GW_GRPC_DELEGATOR_NET_ALIAS}
+      gw-slurm_frontend-net:
+        aliases:
+          - ${GW_GRPC_DELEGATOR_NET_ALIAS}
+      gw-virtuoso-net:
+        aliases:
+          - ${GW_GRPC_DELEGATOR_NET_ALIAS}
+    dns:  8.8.8.8
+    env_file:
+      - ${GW_GRPC_DELEGATOR_ENV_FILE}
+    volumes:
+      - ${PROGRAMS_BASE_PATH}/GRPC/:/programs/GRPC/
+      - ${GEMS_BASE_PATH}:/programs/gems/
+      - ${PROGRAMS_BASE_PATH}/GlycoProteinBuilder/:/programs/GlycoProteinBuilder/
+      - ${USERDATA_BASE_PATH}:/website/userdata/
+      - ${UPLOADS_BASE_PATH}:/website/uploads/
+      - ${DATA_BASE_PATH}/TESTS/:/website/TESTS/
+    command: [ "python", "/programs/GRPC/JSON/json_server.py" ]
+
+#########################################################
+#          DevEnv GRPC Stack Docker Networks            #
+#########################################################
+networks:
+  gw-grpc-net:
+    name: ${GW_GRPC_NETWORK}
+    # ipam:
+    #   config:
+    #     - subnet: ${GW_GRPC_FRONTEND_SUBNET}
+  gw-virtuoso-net:
+    external: true
+    name: ${GW_VIRTUOSO_NETWORK}
+  gw-slurm_frontend-net:
+    external: true
+    name: ${GW_SLURM_FRONTEND_NETWORK}

@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  gw-grpc_compiler:
+    image: ${GW_GRPC_DELEGATOR_IMAGE}:${GW_GRPC_DELEGATOR_TAG}
+    container_name: ${GW_GRPC_DELEGATOR_CONTAINER_NAME}_compiler
+    volumes:
+      - Web_Programs/gems:/programs/gems
+      - Web_Programs/workspace:/website/workspace/
+    user: webdev:webster
+    command: bash -c "cd /programs/gems/ && ${GEMS_COMMAND} "
+
