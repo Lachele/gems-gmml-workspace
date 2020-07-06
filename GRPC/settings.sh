@@ -6,12 +6,6 @@ cd ../
     source settings.sh
     source ENVIRONMENT.sh 
 cd ${GW_GRPC_DIR}
-cd ../Slurm 
-    source settings.sh 
-cd ../${GW_GRPC_DIR}
-cd ../Virtuoso 
-    source settings.sh 
-cd ../${GW_GRPC_DIR}
 
 GW_GRPC_SERVICE="gw-grpc"
 GW_GRPC_DOCKER_COMPOSE_FILE="./docker-compose.grpc.yml"

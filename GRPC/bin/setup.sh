@@ -22,8 +22,6 @@ done
 #			Delegator Setup				#
 #########################################
 echo """${FILE_MESSAGE}
-VIRTUOSO_DB=${GW_VIRTUOSO_DB_NET_ALIAS}
-SLURM_HEAD=${GW_SLURM_HEAD_NET_ALIAS}
 GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 """ > ${GW_GRPC_DELEGATOR_ENV_FILE}
 
